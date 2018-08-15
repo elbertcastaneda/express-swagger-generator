@@ -93,7 +93,7 @@ For model definitions:
  
  
 /**
- * @typedef WithNativeTypes
+ * @typedef PointWithNativeTypes
  * @property {number} x
  *   ```yaml-swagger-settings
  *   required: true
