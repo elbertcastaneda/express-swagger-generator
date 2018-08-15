@@ -71,9 +71,40 @@ For model definitions:
  */
 
 /**
+ * @typedef ProductWithNativeTypes
+ * @property {number} id
+ *   ```yaml-swagger-settings
+ *   propertyType: integer
+ *   ```
+ * @property {string} name
+ *   ```yaml-swagger-settings
+ *   required: true
+ *   ```
+ *   Some description for product
+ * @property {Array.<Point>} Point
+ */
+
+/**
  * @typedef Point
  * @property {integer} x.required
  * @property {integer} y.required - Some description for point
+ * @property {string} color
+ */
+ 
+ 
+/**
+ * @typedef WithNativeTypes
+ * @property {number} x
+ *   ```yaml-swagger-settings
+ *   required: true
+ *   propertyType: integer
+ *   ```
+ * @property {integer} y
+ *   ```yaml-swagger-settings
+ *   required: true
+ *   propertyType: integer
+ *   ```
+ *   Some description for point
  * @property {string} color
  */
 
