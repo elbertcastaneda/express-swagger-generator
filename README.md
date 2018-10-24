@@ -4,6 +4,7 @@
 
 ```
 npm i express-swagger-generator --save-dev
+npm -i express-swaggerize-ui --save-dev
 ```
 
 #### Usage
@@ -11,36 +12,60 @@ npm i express-swagger-generator --save-dev
 ```
 const express = require('express');
 const app = express();
-const expressSwagger = require('express-swagger-generator')(app);
+const expressSwaggerGenerator = require('express-swagger-generator');
+const swaggerUi = require('express-swaggerize-ui');
+
+export const Router = express.Router;
 
 let options = {
-    swaggerDefinition: {
-        info: {
-            description: 'This is a sample server',
-            title: 'Swagger',
-            version: '1.0.0',
-        },
-        host: 'localhost:3000',
-        basePath: '/v1',
-        produces: [
-            "application/json",
-            "application/xml"
-        ],
-        schemes: ['http', 'https'],
-		securityDefinitions: {
-            JWT: {
-                type: 'apiKey',
-                in: 'header',
-                name: 'Authorization',
-                description: "",
-            }
-        }
+  swaggerDefinition: {
+    info: {
+      description: 'This is a sample server',
+      title: 'Swagger',
+      version: '1.0.0',
     },
-    basedir: __dirname, //app absolute path
-    files: ['./routes/**/*.js'] //Path to the API handle folder
+    host: 'localhost:3000',
+    basePath: '/v1',
+    produces: [
+      "application/json",
+      "application/xml"
+    ],
+    schemes: ['http', 'https'],
+    securityDefinitions: {
+      JWT: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'Authorization',
+        description: "",
+      }
+    }
+  },
+  basedir: __dirname, //app absolute path
+  files: ['./routes/**/*.js'], //Path to the API handle folder
+  formatterDescriptions: (description = '') => {
+    // You can format or add process to descriptions
+  }
 };
-expressSwagger(options)
-app.listen(3000);
+
+let swaggerObject = null;
+expressSwaggerGenerator(options)
+  .then(swObj => {
+    swaggerObject = swObj;
+  });
+
+const router = new Router();
+
+router.use('/api-docs.json', function (req, res) {
+  res.json(swaggerObject);
+});
+router.use('/api-docs', swaggerUi({
+  docs: '/api-docs.json' // from the express route above.
+}));
+
+app.use([
+  router,
+]);
+
 ```
 
 Open http://<app_host>:<app_port>/api-docs in your browser to view the documentation.
@@ -99,10 +124,10 @@ For model definitions:
  *   required: true
  *   propertyType: integer
  *   ```
- * @property {integer} y
+ * @property {number} y
  *   ```yaml-swagger-settings
  *   required: true
- *   propertyType: integer
+ *   propertyType: number
  *   ```
  *   Some description for point
  * @property {string} color
