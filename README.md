@@ -90,6 +90,7 @@ For model definitions:
 ```
 /**
  * @typedef Product
+ * @swaggermodel
  * @property {integer} id
  * @property {string} name.required - Some description for product
  * @property {Array.<Point>} Point
@@ -97,6 +98,7 @@ For model definitions:
 
 /**
  * @typedef ProductWithNativeTypes
+ * @swaggermodel
  * @property {number} id
  *   ```yaml-swagger-settings
  *   propertyType: integer
@@ -111,6 +113,7 @@ For model definitions:
 
 /**
  * @typedef Point
+ * @swaggermodel
  * @property {integer} x.required
  * @property {integer} y.required - Some description for point
  * @property {string} color
@@ -119,6 +122,7 @@ For model definitions:
  
 /**
  * @typedef PointWithNativeTypes
+ * @swaggermodel
  * @property {number} x
  *   ```yaml-swagger-settings
  *   required: true
@@ -140,6 +144,7 @@ For model definitions:
 
 /**
  * @typedef Response
+ * @swaggermodel
  * @property {[integer]} code
  */
 
