@@ -102,6 +102,7 @@ For model definitions:
  * @property {number} id
  *   ```yaml-swagger-settings
  *   propertyType: integer
+ *   example: 123
  *   ```
  * @property {string} name
  *   ```yaml-swagger-settings
@@ -161,7 +162,22 @@ For model definitions:
  * @produces application/json application/xml
  * @consumes application/json application/xml
  * @returns {Response.model} 200 - An array of user info
- * @returns {Product.model}  default - Unexpected error
+ * @returns {Error.model}  default - Unexpected error
+ * @headers {integer} 200.X-Rate-Limit - calls per hour allowed by the user
+ * @headers {string} 200.X-Expires-After - 	date in UTC when token expires
+ * @security JWT
+ */
+
+
+ /**
+ * This other function comment is parsed by doctrine
+ * sdfkjsldfkj
+ * @route GET /users
+ * @group foo - Operations about user
+ * @produces application/json application/xml
+ * @consumes application/json application/xml
+ * @returns {Array<Product.model>} 200 - An array of user info
+ * @returns {Error.model}  default - Unexpected error
  * @headers {integer} 200.X-Rate-Limit - calls per hour allowed by the user
  * @headers {string} 200.X-Expires-After - 	date in UTC when token expires
  * @security JWT
